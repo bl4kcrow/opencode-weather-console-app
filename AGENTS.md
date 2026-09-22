@@ -15,7 +15,7 @@ Weather CLI built with Bun + TypeScript; fetches data from OpenMeteo (geocoding 
 - `strict` + `noUncheckedIndexedAccess` are on; `noUnusedLocals`/`noUnusedParameters` are off
 - `types: ["bun"]` — use Bun globals, not `@types/node`
 - User-facing menu/labels are in Spanish (see README)
-- Colors via `src/colors.ts`: cyan for the menu frame, yellow for temperatures/warnings, green for success messages, red for errors. Color is applied only when stdout is a TTY and `NO_COLOR` is unset.
+- Colors via `src/utils/colors.ts`: cyan for the menu frame, yellow for temperatures/warnings, green for success messages, red for errors. Color is applied only when stdout is a TTY and `NO_COLOR` is unset.
 - Babel-style line-comments are already used inside `tsconfig.json`; keep them valid JSONC
 
 ## Architecture (per README)

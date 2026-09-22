@@ -1,13 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import {
-  formatCity,
-  formatForecastDay,
-  renderMenu,
-  toggleUnit,
-  unitSymbol,
-  weatherDescription,
-} from "./ui.ts";
-import type { City, DailyForecast, Unit } from "./types.ts";
+import { formatCity, formatForecastDay, unitSymbol, weatherDescription } from "./format.ts";
+import type { City, DailyForecast, Unit } from "../types/index.ts";
 
 function city(overrides: Partial<City> = {}): City {
   return {
@@ -36,15 +29,10 @@ describe("formatCity", () => {
   });
 });
 
-describe("unit helpers", () => {
+describe("unitSymbol", () => {
   test("maps unit to symbol", () => {
     expect(unitSymbol("celsius" as Unit)).toBe("°C");
     expect(unitSymbol("fahrenheit" as Unit)).toBe("°F");
-  });
-
-  test("toggles back and forth", () => {
-    expect(toggleUnit("celsius")).toBe("fahrenheit");
-    expect(toggleUnit("fahrenheit")).toBe("celsius");
   });
 });
 
@@ -89,16 +77,5 @@ describe("formatForecastDay", () => {
       weatherCode: 0,
     };
     expect(formatForecastDay(day, "°F")).toContain("max 68°F / min 54°F");
-  });
-});
-
-describe("renderMenu", () => {
-  test("reflects city count and unit symbol", () => {
-    const menu = renderMenu(2, "°F");
-    expect(menu).toContain("WEATHER CLI");
-    expect(menu).toContain("Clima de todas las ciudades (2)");
-    expect(menu).toContain("8. Ajustes (°F)");
-    expect(menu).toContain("6. Pronóstico 7 días (default)");
-    expect(menu).toContain("9. Salir");
   });
 });
