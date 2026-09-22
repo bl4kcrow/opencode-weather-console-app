@@ -1,7 +1,7 @@
-import { getCurrentTemp, searchCity } from "./src/api.ts";
+import { getCurrentTemp, getWeekForecast, searchCity } from "./src/api.ts";
 import { green, red, yellow } from "./src/colors.ts";
 import { loadData, saveData } from "./src/storage.ts";
-import { formatCity, renderMenu, toggleUnit, unitSymbol } from "./src/ui.ts";
+import { formatCity, formatForecastDay, renderMenu, toggleUnit, unitSymbol } from "./src/ui.ts";
 import type { AppData, City } from "./src/types.ts";
 
 async function main(): Promise<void> {
@@ -27,6 +27,9 @@ async function main(): Promise<void> {
         break;
       case "5":
         await setDefault(data);
+        break;
+      case "6":
+        await showWeekDefault(data);
         break;
       case "8":
         data.settings.unit = toggleUnit(data.settings.unit);
@@ -82,6 +85,38 @@ async function showWeather(city: City, data: AppData): Promise<void> {
     const { temperature, unitLabel } = await getCurrentTemp(city, data.settings.unit);
     console.log(`\n${formatCity(city)}`);
     console.log(`  Temperatura actual: ${yellow(temperature)} ${unitLabel}\n`);
+  } catch (error) {
+    console.log(red(`\nError al consultar ${city.name}: ${errorMessage(error)}\n`));
+  }
+}
+
+async function showWeekDefault(data: AppData): Promise<void> {
+  if (data.settings.defaultCityId === null) {
+    console.log("No hay ciudad default establecida.\n");
+    await addCity(data, true);
+    return;
+  }
+
+  const city = data.cities.find((c) => c.id === data.settings.defaultCityId);
+  if (!city) {
+    console.log(yellow("La ciudad default ya no existe; se restableció.\n"));
+    data.settings.defaultCityId = null;
+    await saveData(data);
+    return;
+  }
+
+  await showWeekWeather(city, data);
+  await pause();
+}
+
+async function showWeekWeather(city: City, data: AppData): Promise<void> {
+  try {
+    const { days, unitLabel } = await getWeekForecast(city, data.settings.unit);
+    console.log(`\n${formatCity(city)} — próximo 7 días:`);
+    for (const day of days) {
+      console.log(formatForecastDay(day, unitLabel));
+    }
+    console.log("");
   } catch (error) {
     console.log(red(`\nError al consultar ${city.name}: ${errorMessage(error)}\n`));
   }

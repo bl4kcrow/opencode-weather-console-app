@@ -8,6 +8,13 @@ export interface City {
   timezone: string;
 }
 
+export interface DailyForecast {
+  date: string;
+  tempMax: number;
+  tempMin: number;
+  weatherCode: number;
+}
+
 export type Unit = "celsius" | "fahrenheit";
 
 export interface Settings {
