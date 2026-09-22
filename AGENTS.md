@@ -1,13 +1,13 @@
 # AGENTS.md
 
-Weather CLI built with Bun + TypeScript; fetches data from OpenMeteo (geocoding + forecast, no API key needed). In early dev: `index.ts` is a one-line stub.
+Weather CLI built with Bun + TypeScript; fetches data from OpenMeteo (geocoding + forecast, no API key needed). The app is fully functional: menu-driven console UI, local persistence, and a compiled binary.
 
 ## Commands
 
-- Run: `bun run index.ts` (no npm scripts exist; don't add package.json scripts without reason)
+- Run: `bun run start` (or `bun run dev` for watch mode); `bun run index.ts` also works
 - Typecheck: `bunx tsc --noEmit` (typescript 7 is a peerDep, installed via bun)
-- Tests: no framework configured; `bun test` (bun:test) if you add them
-- Final deliverable (per README): `bun build --compile` a standalone binary
+- Tests: `bun test` (bun:test) — covers storage and UI helpers; add tests alongside new modules
+- Build: `bun run build` -> compiles standalone binary via `bun build --compile`
 
 ## Conventions
 
@@ -15,6 +15,7 @@ Weather CLI built with Bun + TypeScript; fetches data from OpenMeteo (geocoding 
 - `strict` + `noUncheckedIndexedAccess` are on; `noUnusedLocals`/`noUnusedParameters` are off
 - `types: ["bun"]` — use Bun globals, not `@types/node`
 - User-facing menu/labels are in Spanish (see README)
+- Colors via `src/colors.ts`: cyan for the menu frame, yellow for temperatures/warnings, green for success messages, red for errors. Color is applied only when stdout is a TTY and `NO_COLOR` is unset.
 - Babel-style line-comments are already used inside `tsconfig.json`; keep them valid JSONC
 
 ## Architecture (per README)
