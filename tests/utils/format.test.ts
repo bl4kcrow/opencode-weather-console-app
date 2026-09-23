@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { formatCity, formatForecastDay, unitSymbol, weatherDescription } from "./format.ts";
-import type { City, DailyForecast, Unit } from "../types/index.ts";
+import { formatCity, formatForecastDay, unitSymbol, weatherDescription } from "../../src/utils/format.ts";
+import type { City, DailyForecast, Unit } from "../../src/types/index.ts";
 
 function city(overrides: Partial<City> = {}): City {
   return {
@@ -49,6 +49,16 @@ describe("weatherDescription", () => {
     expect(weatherDescription(80)).toBe("Chubascos");
     expect(weatherDescription(85)).toBe("Chubascos de nieve");
     expect(weatherDescription(95)).toBe("Tormenta");
+  });
+
+  test("covers numeric ranges", () => {
+    expect(weatherDescription(48)).toBe("Niebla");
+    expect(weatherDescription(57)).toBe("Llovizna");
+    expect(weatherDescription(67)).toBe("Lluvia");
+    expect(weatherDescription(77)).toBe("Nieve");
+    expect(weatherDescription(82)).toBe("Chubascos");
+    expect(weatherDescription(86)).toBe("Chubascos de nieve");
+    expect(weatherDescription(99)).toBe("Tormenta");
   });
 
   test("falls back for unknown codes", () => {

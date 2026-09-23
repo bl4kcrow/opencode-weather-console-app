@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { paint } from "./colors.ts";
+import { paint } from "../../src/utils/colors.ts";
 
 describe("paint", () => {
   test("wraps text in the given ANSI code", () => {

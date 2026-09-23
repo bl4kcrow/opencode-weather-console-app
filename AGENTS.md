@@ -6,8 +6,8 @@ Weather CLI built with Bun + TypeScript; fetches data from OpenMeteo (geocoding 
 
 - Run: `bun run start` (or `bun run dev` for watch mode); `bun run index.ts` also works
 - Typecheck: `bunx tsc --noEmit` (typescript 7 is a peerDep, installed via bun)
-- Tests: `bun test` (bun:test) — covers storage and UI helpers; add tests alongside new modules
-- Build: `bun run build` -> compiles standalone binary via `bun build --compile`
+- Tests: `bun run test` (bun:test, runs with `--parallel` for per-file isolation) — the suite lives in `tests/` mirroring the structure of `src/` (storage, api, utils, presentation, actions). Add new tests as `tests/**/<module>.test.ts` alongside the module they cover. Also available: `bun run test:watch`, `bun run test:coverage`.
+- Build: `bun run build` -> runs `bun run test` first; if any test fails, the standalone binary is NOT compiled. On success it compiles via `bun build --compile`.
 
 ## Conventions
 

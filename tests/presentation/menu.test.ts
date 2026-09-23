@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { renderMenu, selectOption } from "./menu.ts";
-import type { MenuOption } from "../types/index.ts";
+import { renderMenu, selectOption } from "../../src/presentation/menu.ts";
+import type { MenuOption } from "../../src/types/index.ts";
 
 function options(): MenuOption[] {
   return [

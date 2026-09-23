@@ -1,6 +1,6 @@
 import { afterAll, describe, expect, test } from "bun:test";
-import { defaultCities, loadCities, saveCities } from "./citiesStorage.ts";
-import type { City } from "../types/index.ts";
+import { defaultCities, loadCities, saveCities } from "../../src/storage/citiesStorage.ts";
+import type { City } from "../../src/types/index.ts";
 
 const tmpPath = `${import.meta.dir}/.test-cities-${Math.random().toString(36).slice(2)}.json`;
 

@@ -1,6 +1,6 @@
 import { afterAll, describe, expect, test } from "bun:test";
-import { defaultSettings, loadSettings, saveSettings, toggleUnit } from "./settingsStorage.ts";
-import type { Settings } from "../types/index.ts";
+import { defaultSettings, loadSettings, saveSettings, toggleUnit } from "../../src/storage/settingsStorage.ts";
+import type { Settings } from "../../src/types/index.ts";
 
 const tmpPath = `${import.meta.dir}/.test-settings-${Math.random().toString(36).slice(2)}.json`;
 
